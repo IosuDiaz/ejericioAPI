@@ -21,7 +21,30 @@
 				}
 				
 				function loadFods(idFoodType){
+						
 						//TODO: Llamada por ajax a servicio PONER URL
+						var allFoods=new XMLHttpRequest();
+						let url = `http://challenge.cysonline.com.ar/challenge/foods/`; //ESTA NO FUNCA POR CORS
+						//let url = `https://pokeapi.co/api/v2/pokemon`; //ESTA ME DEJA 
+    
+						allFoods.onreadystatechange = function (){
+						if((this.status == 200 || this.status <= 299) && this.readyState == 4)
+						{
+							let response = JSON.parse(this.response);
+							//LA IDEA ES IMPRIMIR EL JSON POR CONSOLA
+							console.log(response);
+
+							// console.log(response.status);
+							// console.log(response.statusText);                         
+							// console.log(response.data);
+						}
+						
+					} 
+
+					allFoods.open('GET',url,true);
+					
+					allFoods.send();
+					/*
 						var allFoods=new Array();
 						allFoods.push([{"id":1, "nombre":"Pollo"},
 									   {"id":2, "nombre":"Vaca"},
@@ -31,7 +54,7 @@
 									   {"id":6, "nombre":"Pera"}]);
 						allFoods.push([{"id":7, "nombre":"Tomate"},
 									   {"id":8, "nombre":"Lechuga"},
-									   {"id":9, "nombre":"Zanahoria"}]);
+									   {"id":9, "nombre":"Zanahoria"}]);*/
 						foods=allFoods[idFoodType];
 						selectLoad($('#food'), foods);
 						
